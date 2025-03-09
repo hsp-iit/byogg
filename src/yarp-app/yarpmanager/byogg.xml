@@ -1,0 +1,242 @@
+<application>
+    <name>byogg-yarp-app</name>
+
+    <description>3D Vision-based Grasping with Odometry</description>
+    <version>1.0</version>
+    
+    <authors>
+        <author email="pestracquadanio@gmail.com">Giuseppe Stracquadanio</author>
+    </authors>
+    
+    <module>
+        <name>yarpview</name>
+        <parameters>--w 320 --h 280 --name /yarpview/receive/rgb/image:i --title "Camera RGB"</parameters>
+        <node>localhost</node>
+    </module>
+    <module>
+        <name>yarpview</name>
+        <parameters>--w 320 --h 280 --y 350 --name /yarpview/receive/depthcolor/image:i --title "Reconstructed Depth"</parameters>
+        <node>localhost</node>
+    </module>
+    <module>
+        <name>yarpview</name>
+        <parameters>--w 320 --h 280 --x 300 --name /yarpview/receive/reference/image:i --title "RGB Reference Frame"</parameters>
+        <node>localhost</node>
+    </module>
+
+    <!-- Connections between rfmodules  -->
+
+    <!-- Reader to Depther  (Continuous RGB stream)-->
+    <connection>
+        <from>/reader/forward/rgb/image:o</from>
+        <to>/depther/receive/rgb/image:i</to>
+    </connection>
+    <!-- Reader to Depther  (Reference RGB frame)-->
+    <connection>
+        <from>/reader/forward/reference/image:o</from>
+        <to>/depther/receive/reference/image:i</to>
+    </connection>
+    <!-- Reader to Odometer (RGB) -->
+    <connection>
+        <from>/reader/forward/to/odometer/rgb/image:o</from>
+        <to>/odometer/receive/rgb/image:i</to>
+    </connection>
+    <!-- Reader to Odometer (Reset signal) -->
+    <connection>
+        <from>/reader/forward/reset:o</from>
+        <to>/odometer/receive/ctrigger:i</to>
+    </connection>
+    <!-- Reader to Controller (Reset signal) -->
+    <connection>
+        <from>/reader/forward/reset:o</from>
+        <to>/controller/receive/from/reader/reset:i</to>
+    </connection>
+
+    <!-- Depther to Visualizer (RGB) -->
+    <connection>
+        <from>/depther/forward/reference/rgb/image:o</from>
+        <to>/visualizer/receive/rgb/image:i</to>
+    </connection>
+    <!-- Depther to Visualizer (Depth) -->
+    <connection>
+        <from>/depther/forward/reference/depth/image:o</from>
+        <to>/visualizer/receive/depth/image:i</to>
+    </connection>
+
+    <!-- Odometer to Visualizer (Camera poses)  -->
+    <connection>
+        <from>/odometer/forward/to/visualizer/cameras/se3:o</from>
+        <to>/visualizer/receive/cameras/se3:i</to>
+    </connection>
+    <!-- Odometer to Visualizer (Patches, Coords)  -->
+    <connection>
+        <from>/odometer/forward/to/visualizer/patches/coords:o</from>
+        <to>/visualizer/receive/patches/coords:i</to>
+    </connection>
+    <!-- Odometer to Visualizer (Patches, Inv.Depths)  -->
+    <connection>
+        <from>/odometer/forward/to/visualizer/patches/depths:o</from>
+        <to>/visualizer/receive/patches/depths:i</to>
+    </connection>
+
+
+    <!-- Depther to Grasper (RGB) -->
+    <connection>
+        <from>/depther/forward/reference/rgb/image:o</from>
+        <to>/grasper/receive/rgb/image:i</to>
+    </connection>
+    <!-- Depther to Grasper (Depth) -->
+    <connection>
+        <from>/depther/forward/reference/depth/image:o</from>
+        <to>/grasper/receive/depth/image:i</to>
+    </connection>
+    <!-- Grasper to Visualizer (Grasp poses)  -->
+    <connection>
+        <from>/grasper/forward/grasps/se3:o</from>
+        <to>/visualizer/receive/grasps/se3:i</to>
+    </connection>
+
+    <!-- Connections from/to Controller -->
+    <!-- Controller to Reader (Ptrigger) -->
+    <connection>
+        <from>/controller/forward/to/reader/ptrigger:o</from>
+        <to>/reader/receive/ptrigger:i</to>
+    </connection>
+    <!-- Controller to Reader (Ctrigger) -->
+    <connection>
+        <from>/controller/forward/to/reader/ctrigger:o</from>
+        <to>/reader/receive/ctrigger:i</to>
+    </connection>
+    <!-- Controller to Odometer (Ctrigger) -->
+    <connection>
+        <from>/controller/forward/to/odometer/ctrigger:o</from>
+        <to>/odometer/receive/ctrigger:i</to>
+    </connection>
+    <!-- Controller to Visualizer (Clear) -->
+    <connection>
+        <from>/controller/forward/to/visualizer/clear:o</from>
+        <to>/visualizer/receive/clear:i</to>
+    </connection>
+    <!-- Controller to Visualizer (Candidate) -->
+    <connection>
+        <from>/controller/forward/to/visualizer/candidate:o</from>
+        <to>/visualizer/receive/candidate:i</to>
+    </connection>
+
+    <!-- Depther to Controller (Reference RGB) -->
+    <connection>
+        <from>/depther/forward/reference/rgb/image:o</from>
+        <to>/controller/receive/rgb/image:i</to>
+    </connection>
+    <!-- Depther to Controller (Reference Depth) -->
+    <connection>
+        <from>/depther/forward/reference/depth/image:o</from>
+        <to>/controller/receive/depth/image:i</to>
+    </connection>
+
+    <!-- Odometer to Controller (Camera poses)  -->
+    <connection>
+        <from>/odometer/forward/to/controller/camera/se3:o</from>
+        <to>/controller/receive/camera/se3:i</to>
+    </connection>
+    <!-- Odometer to Controller (Patches, Coords)  -->
+    <connection>
+        <from>/odometer/forward/to/controller/patches/coords:o</from>
+        <to>/controller/receive/patches/coords:i</to>
+    </connection>
+    <!-- Odometer to Controller (Patches, Inv.Depths)  -->
+    <connection>
+        <from>/odometer/forward/to/controller/patches/depths:o</from>
+        <to>/controller/receive/patches/depths:i</to>
+    </connection>
+    <!-- Grasper to Controller (Grasp poses)  -->
+    <connection>
+        <from>/grasper/forward/grasps/se3:o</from>
+        <to>/controller/receive/grasps/se3:i</to>
+    </connection>
+
+    <!-- Connections with yarpviews  -->
+    <connection>
+        <from>/reader/forward/rgb/image:o</from>
+        <to>/yarpview/receive/rgb/image:i</to>
+    </connection>
+    <connection>
+        <from>/reader/forward/reference/image:o</from>
+        <to>/yarpview/receive/reference/image:i</to>
+    </connection>
+    <connection>
+        <from>/depther/forward/depthcolor/image:o</from>
+        <to>/yarpview/receive/depthcolor/image:i</to>
+    </connection>
+    
+    <!-- Connections with Dumper -->
+    <!-- Reader to Dumper (RGB Stream to Odometer)-->
+    <connection>
+        <from>/reader/forward/to/odometer/rgb/image:o</from>
+        <to>/dumper/receive/rgb/image:i</to>
+    </connection>    
+    <!-- Depther to Dumper (Depth for RGB Reference Frame)-->
+    <connection>
+        <from>/depther/forward/reference/depth/image:o</from>
+        <to>/dumper/receive/depth/image:i</to>
+    </connection>
+    <!-- NOTE: If visualization is not active, data is not sent over these ports!! -->
+    <!-- TODO: Correct this, as we may want to store data even if we don't use the visualizer. -->
+    <!-- Odometer to Dumper (Camera poses)  -->
+    <connection>
+        <from>/odometer/forward/to/visualizer/cameras/se3:o</from>
+        <to>/dumper/receive/cameras/se3:i</to>
+    </connection>
+    <!-- Odometer to Dumper (Patches, Coords)  -->
+    <connection>
+        <from>/odometer/forward/to/visualizer/patches/coords:o</from>
+        <to>/dumper/receive/patches/coords:i</to>
+    </connection>
+    <!-- Odometer to Dumper (Patches, Inv.Depths)  -->
+    <connection>
+        <from>/odometer/forward/to/visualizer/patches/depths:o</from>
+        <to>/dumper/receive/patches/depths:i</to>
+    </connection>
+    <!-- Grasper to Dumper (Grasp poses)  -->
+    <connection>
+        <from>/grasper/forward/grasps/se3:o</from>
+        <to>/dumper/receive/grasps/se3:i</to>
+    </connection>
+    <!-- Controller to Dumper (Candidate ID) -->
+    <connection>
+        <from>/controller/forward/to/visualizer/candidate:o</from>
+        <to>/dumper/receive/candidate:i</to>
+    </connection>
+    <!-- Controller to Dumper (Command) -->
+    <connection>
+        <from>/controller/forward/to/dumper/command:o</from>
+        <to>/dumper/receive/command:i</to>
+    </connection>
+    <!-- Controller to Dumper (Hannes Joints) -->
+    <connection>
+        <from>/controller/forward/hannesJoints:o</from>
+        <to>/dumper/receive/hannesJoints:i</to>
+    </connection>
+    <!-- Controller to Dumper (EMG [6]Channels) -->
+    <connection>
+        <from>/controller/forward/emg:o</from>
+        <to>/dumper/receive/emg:i</to>
+    </connection>
+    
+    <!-- Chrono to Dumper (Command) -->
+    <connection>
+        <from>/chrono/forward/to/dumper/command:o</from>
+        <to>/dumper/receive/command:i</to>
+    </connection>
+    <!-- Chrono to Multidof (Command) -->
+    <connection>
+        <from>/chrono/forward/to/multidof/command:o</from>
+        <to>/multidof/receive/command:i</to>
+    </connection>
+    <!-- Multidof to Dumper (EMG [6]Channels) -->
+    <connection>
+        <from>/multidof/forward/emg:o</from>
+        <to>/dumper/receive/emg:i</to>
+    </connection>
+
+</application>

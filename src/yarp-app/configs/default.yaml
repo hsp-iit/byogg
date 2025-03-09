@@ -1,0 +1,245 @@
+
+global:
+  dump_rs_pcd_path: /docker_volume/pcd_data/rs_pcd
+  dump_pred_pcd_path: /docker_volume/pcd_data/pred_pcd
+  calib: src/cameras/calib/d435.txt # txt file with your camera intrinsics
+  # calib: src/cameras/calib/hannes.txt 
+  img_height: 480
+  img_width: 640
+  scaling_method: pooling # 'rescaling' is the other option
+  
+  dump: 
+    active: True
+    reader: True
+    depther: True
+    odometer: True
+    grasper:  True
+    controller: True
+    only_last_camera_pose: True
+    timestamps: True
+    emg_channels: False
+    root: /path/to/pipeline/dump/folder
+
+  pipeline:
+    chrono:
+      sync_tobii: True
+      dump_path: /path/to/subject/data/dumping
+      multidof: False
+
+    tobii:
+      serial_number: 0.0.0.0
+
+    times:
+      closing_fingers:  2     # Wait <closing_fingers> secs before closing fingers. 
+      reset:  5               # Wait <reset> secs before resetting the pipeline state.
+
+visualization:
+  active: True
+  render_delta_t: 0.1 
+  show_controller_candidate: True
+  apply_view: False
+  view:
+    cfg: src/cameras/controlViews/1.txt
+    trajectory: False       # WIP 
+
+candidate-selection:
+  # If KNN > 1, more than one candidate can be selected.
+  # The prop. controller for computing the hannes joint angles will run 
+  # for each of them. At the end, the configuration with lower PS offset will 
+  # be chosen. 
+  KNN: 1
+  use-last-camera: True
+  # If always-pinch is active, use pinch preshape with (always) 0 PS
+  # if gripper aperture is lower than a given threshold,
+  # expressed as a percentage of the full gripper width (0.08m).
+  always-pinch: 
+    active: True
+    threshold: 30 # (%) 
+
+  stop-prop-controller: 
+    criteria: max-steps # Other option is convergence
+    max-steps: 200
+    conv-thresh: 0.001
+
+hannes:
+  active: False
+  device_name: DEVICE_NAME
+  when_buffer_is_full: nearest-grasp # Options are nearest-grasp or home.
+
+  read_encoders: False
+  # Computed by checking the ps and fe ticks at home configuration, not fully precise.
+  # When hannes is active, they are recomputed at run-time.
+  home_configuration:
+    ps:
+      eul_deg: 1    
+    fe:
+      eul_deg: 6.35
+
+  fingers:
+    range_thresh: 20
+    
+    limits:
+      range:
+        min: 0
+        max: 70
+
+    max_speed: 8
+    open_gain: 0.5
+    close_gain: 1
+    ch_range: 1
+
+  ps:
+    limits:
+      eul_deg:
+        min: -90
+        max: 90
+      
+      range:
+        min: -100
+        max: 100
+      
+      tick:
+        min: 65446  # == 2**16 - 90, and it grows until 2**16
+        overflow: 65536 # 2**16
+        max: 90
+
+    lmbda: 40
+  
+  fe: 
+    limits: 
+      eul_deg: 
+        min: -49
+        max: 33
+      
+      range: 
+        min: 0
+        max: 100
+
+      tick:
+        #min: 4500
+        min: 3000     # TODO add limits check in code
+        #max: 24500
+        #max: 32000
+        max: 27000
+
+    lmbda: 40
+
+  preshape:
+    config: pinch
+
+  emg:
+    fingers:
+      active: False
+
+    open_ch: 1
+    close_ch: 0
+
+    open_thresh: 2.0
+    close_thresh: 2.0
+
+  ptrigger:
+    # Available options: open-hold, open-double-peak, cocontr, manual
+    # "Manual" means through to a command via RPC.
+    action: cocontr
+
+    hold:
+      keep_last_s: 0.5
+      emg_thresh: 2.0
+
+    double_peak:
+      keep_last_s: 1.0
+      prominence: 2.0
+
+    cocontr:
+      cocontr_thresh: 2.5
+
+  ctrigger:
+    # Available options: auto-dist, auto-still-hand, manual-close-hold, manual-close-double-peak, manual-cocontr, manual-rpc
+    # "Auto" means that the condition is automatically detect, without user invervention.
+    # "Manual" means that the user can trigger the condition using EMGs or through Yarp RPC.
+    criteria: auto-dist 
+
+    auto-dist:
+      dist-thresh: 0.08 # distance threshold in meters
+
+  robot:
+    L1: 0
+    L2: 80   # TODO ask for the precise value
+    
+    # end effector to camera configuration
+    t_e2c:
+      # expressed in mm
+      x: -20  # TODO ask for the precise value
+      y: 0
+      z: 0
+    eul_e2c_deg:
+      # euler angles for intrinsic rotations about z, y, x, in
+      # this order. expressed in degrees
+      x: -15  # TODO ask for the precise value
+      y: 90
+      z: 90
+
+yarp:
+  # stream: camera_0 # for camera with mount index 0
+  stream: path/to/rgb/folder
+  fps:
+    reader: 15
+    depther: 15
+    visualizer: 30
+    controller: 30
+    odometer: 30
+    dumper: 60
+    grasper: 5
+    multigrasper: 10
+    
+mde:
+  model_name: bbsmall_semisphere_free_encoder_rand_decoder
+  backbone: dinov2 # dinov2 or depth-anything
+  model_ckpts_path: weights/depth/ckpts
+  model_config_path: weights/depth/configs.json
+  min_depth: 0
+  max_depth: 2
+
+pcd:
+  remove-table: False   # Try to fit a plane with RANSAC to the PCD points, to remove the table.
+  # Available pcd sampling strategies: random, inv-depth-mass, farthest-point
+  sampling-strategy: inv-depth-mass 
+
+grasping:
+  model_name: scene_test_2048_bs3_hor_sigma_001
+  model_ckpts_path: weights/grasping/ckpts
+  contact_grasp_cfg:
+    forward_passes: 1
+    skip_border_objects: False
+    z_range: [0.0, 2.0]
+    local_regions: False
+    filter_grasps: False
+    arg_configs: []
+
+odometry:
+  model_name: dpvo
+  model_ckpts_path: weights/odometry/ckpts
+  dpvo_config:
+    # From dpvo default.yaml config file
+    # NOTE: This configuration is merged with odometry/dpvo/config.py
+    # These configs below only accounts for configurable/tweakable parameters.
+    PATCHES_PER_FRAME: 96 # default is 96
+    REMOVAL_WINDOW: 22
+    INIT_FRAME: 8        # How many valid (i.e. added to pose graph) frames (INIT_FRAME - 1) the odometer receives before starting to run bundle adjustment steps.
+    OPTIMIZATION_WINDOW: 10
+    PATCH_LIFETIME: 13
+    # threshold for keyframe removal
+    KEYFRAME_INDEX: 4
+    KEYFRAME_THRESH: 15.0
+    # camera motion model
+    MOTION_MODEL: 'DAMPED_LINEAR'
+    MOTION_DAMPING: 0.5
+    # maybe use mixed precision for inference
+    MIXED_PRECISION: True
+    GRADIENT_BIAS: False
+    BUFFER_SIZE: 120 # default is 2048
+    SKIP_FRAMES: 0
+    STRIDE: 1
+
+
+  

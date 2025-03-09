@@ -1,0 +1,1 @@
+from grasping.contact_graspnet.model_ops import *

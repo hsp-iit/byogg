@@ -1,0 +1,33 @@
+name: byogg
+channels:
+  - conda-forge
+  - defaults
+  - xformers
+  - pytorch
+  - nvidia
+  - anaconda
+  - pyg
+  
+dependencies:
+  - python=3.9.15
+  - pyyaml=6.0.1
+  - numpy=1.23.5
+  - pytorch=2.0.0
+  - pytorch-cuda=11.7
+  - torchvision=0.15.0
+  - tensorflow-gpu
+  - pytorch-scatter
+  - yacs=0.1.8
+  - pip
+  - pip:
+      - opencv-python-headless==4.9.0.80
+      - mmcv-full==1.5.0
+      - matplotlib==3.8.3
+      - pyransac3d==0.6.0
+      - open3d==0.18.0
+      - camtools==0.1.4
+      - trimesh==4.1.7
+      - pytransform3d==3.5.0
+      - roma==1.5.0
+      - torch_scatter
+      - roboticstoolbox-python
