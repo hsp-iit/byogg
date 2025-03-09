@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
+  <meta property="og:url" content="URL OF THE WEBSITE"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title> Bring Your Own Grasp Generator: Leveraging Robot Grasp Generation for Prosthetic Grasping </title>
+  <link rel="icon" type="image/x-icon" href="static/images/hsp-logo.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title"> &#129302; Bring Your Own Grasp Generator: Leveraging Robot Grasp Generation for Prosthetic Grasping &#129470; </h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a href="https://www.visinf.tu-darmstadt.de/visual_inference/people_vi/visinf_team_details_147200.en.jsp" target="_blank">Giuseppe Stracquadanio</a>,</span>
+              <span class="author-block">
+                <a href="https://www.iit.it/it/people-details/-/people/federico-vasile" target="_blank">Federico Vasile</a>,</span>
+              <span class="author-block">
+                <a href="https://www.iit.it/it/people-details/-/people/elisa-maiettini" target="_blank">Elisa Maiettini</a>,</span>
+              <span class="author-block">
+                <a href="https://www.iit.it/it/people-details/-/people/nicolo-boccardo" target="_blank">Nicolò Boccardo</a>,</span>
+              <span class="author-block">
+                <a href="https://lornat75.github.io/index.html" target="_blank">Lorenzo Natale</a></span>
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block">Italian Institute of Technology, University of Genoa<br>ICRA 2025</span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                      <!-- Arxiv PDF link -->
+                      <span class="link-block">
+                        <a href="https://arxiv.org/pdf/2503.00466" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                  <!-- Github link -->
+                  <span class="link-block">
+                    <a href="https://github.com/hsp-iit/byogg" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <!-- ArXiv abstract Link -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2503.00466" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+              <!-- YouTube video link -->
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=C0I4vhRimQE&t=11s&ab_channel=HumanoidSensingandPerception" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fab fa-youtube"></i>
+                </span>
+                <span>YouTube</span>
+              </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser video-->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video poster="" id="tree" controls muted loop height="100%">
+        <!-- Your video here -->
+        <source src="static/videos/teaser-video.mp4"
+        type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        TL;DR: We propose a new <i>eye-in-hand</i> prosthetic grasping system based on monocular depth estimation and robot grasp generation. 
+        We also deploy it on Hannes!
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End teaser video -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            One of the most important research challenges in upper-limb prosthetics is enhancing the user-prosthesis communication to closely resemble the experience of a natural limb. As prosthetic devices become more complex, users often struggle to control the additional degrees of freedom. In this context, leveraging <i>shared-autonomy</i> principles can significantly improve the usability of these systems. 
+            In this paper, we present a novel <i>eye-in-hand</i> prosthetic grasping system that follows these principles. Our system initiates the approach-to-grasp action based on user's command and automatically configures the DoFs of a prosthetic hand. First, it reconstructs the 3D geometry of the target object without the need of a depth camera. Then, it tracks the hand motion during the approach-to-grasp action and finally selects a candidate grasp configuration according to user's intentions. We deploy our system on the Hannes prosthetic hand and test it on able-bodied subjects and amputees to validate its effectiveness.  We compare it with a multi-DoF prosthetic control baseline and find that our method enables faster grasps, while simplifying the user experience.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+<!-- Videos with Able-bodied subject -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Demos with Able-bodied Subject</h2>
+      <div class="content">
+        <p>
+          We present a series of demos performed by an able-bodied subject to showcase the effectiveness of our <i>eye-in-hand</i> prosthetic grasping system. In the following videos, we show the system in action with different objects and environments. 
+        </p>
+      </div>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-mustard-pinch">
+          <h3 class="title is-4 has-text-centered">Mustard (Pinch)</h3>
+          <video poster="" id="mustard-pinch" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/demos/able-bodied/able-bodied-demo-mustard-pinch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-smallbox-pinch">
+          <h3 class="title is-4 has-text-centered">Small Box (Pinch)</h3>
+          <video poster="" id="smallbox-pinch" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/demos/able-bodied/able-bodied-demo-smallbox-pinch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>        
+        <div class="item item-smallbox-ps">
+          <h3 class="title is-4 has-text-centered">Small Box (with wrist PS)</h3>
+          <video poster="" id="smallbox-ps" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/demos/able-bodied/able-bodied-demo-smallbox-with-ps.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-pitcher-clutter">
+          <h3 class="title is-4 has-text-centered">Pitcher (in clutter)</h3>
+          <video poster="" id="pichter-clutter" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/demos/able-bodied/able-bodied-demo-pitcher-clutter.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-orangespray-clutter">
+          <h3 class="title is-4 has-text-centered">Orange Spray (in clutter)</h3>
+          <video poster="" id="orangespray-clutter" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/demos/able-bodied/able-bodied-demo-orangespray-clutter.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Videos with amputee subjects -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Recordings with Amputee Subjects</h2>
+      <p>
+        We show grasp sequences performed by amputee subjects while using our system. Videos are recorded with the Tobii Pro Glasses 3 scene camera.
+      </p>
+      <div class="hero-body">
+        <video poster="" id="tree" controls muted loop height="100%">
+          <source src="static/videos/video-amputees.mp4"
+          type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results -->
+<section class="section hero">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-fifths">
+        <h2 class="title is-3">Experimental Results</h2>
+        <div class="content has-text-justified">
+          <div>
+            <p>We show average grasp times (AGT) and grasp success rates (GSR) measured on <b>able-bodied subjects</b>. We show per object (a) and per subject (b) statistics.</p>
+            <img src="static/images/gsr-agt-able-bodied.jpg" alt="Results with Able-bodied Subjects">
+          </div>
+          <div>
+            <p>After validating our approach, we conducted further experiments on 3 <b>amputee subjects</b>. We compare our method with Sequential Switching and Control (SSC) baselines. See our paper for comments on these results.</p>
+            <img src="static/images/gsr-agt-amputees.jpg" alt="Results with Amputee Subjects">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experimental Analysis on Cognitive   Load -->
+<section class="section hero">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-fifths">
+        <h2 class="title is-3">Experimental Analysis on Cognitive Load</h2>
+        <div class="content has-text-justified">
+          <div>
+            <p>
+              We propose to demonstrate the ease of use of our system by measuring the user's cognitive load while performing trials. 
+              We relate the cognitive load to pupil dilation (i.e., to the pupil diameter), inspired by previous relevant work in <a href="https://link.springer.com/article/10.3758/s13423-018-1432-y"> experimental psychology</a>.
+              Plots below show pupil dilation (PD) as the percentage of the diameter initially measured while amputees were performing the same actions with their other real hand. You can find more info and discussions in our paper!
+            </p>
+            <img src="static/images/cognitive-load-amputees.jpg" alt="Analysis on Cognitive Load">
+          </div>
+          <div>
+            <p>
+              We show a video demonstration of how pupil dilation changes while performing a grasp with our method.
+            </p>
+            <video poster="" id="tree" controls muted autoplay loop height="100%">
+              <source src="static/videos/cognitive-load-video-amputee.mp4"
+              type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre>
+        <code>
+@misc{stracquadanio2025bringgraspgeneratorleveraging,
+  title={Bring Your Own Grasp Generator: Leveraging Robot Grasp Generation for Prosthetic Grasping}, 
+  author={Giuseppe Stracquadanio and Federico Vasile and Elisa Maiettini and Nicolò Boccardo and Lorenzo Natale},
+  year={2025},
+  eprint={2503.00466},
+  archivePrefix={arXiv},
+  primaryClass={cs.RO},
+  url={https://arxiv.org/abs/2503.00466}, 
+}
+        </code>
+      </pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
